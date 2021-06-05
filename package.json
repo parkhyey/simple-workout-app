@@ -1,0 +1,19 @@
+{
+  "name": "hw-6",
+  "version": "1.0.0",
+  "description": "HW6",
+  "main": "backend.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "OSU",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "cors": "^2.8.5",
+    "express": "^4.13.2",
+    "express-handlebars": "^2.0.1",
+    "express-session": "^1.11.3",
+    "mysql": "^2.8.0"
+  }
+}

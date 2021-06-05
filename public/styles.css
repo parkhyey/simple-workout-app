@@ -1,0 +1,35 @@
+table, th, td {
+    border: 1px solid black;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    width: 110px;
+}
+
+.button {
+    display: block;
+    margin: auto;
+    width: 100%;
+}
+
+#clickAdd {
+    margin-bottom: 20px;
+}
+
+#submitNew {
+    margin: 20px 0px 0px 370px;
+}
+
+#editTableContainer {
+    display: none;
+    padding-top: 20px;
+}
+
+#warning {
+    display: none;
+    color: orangered;
+}

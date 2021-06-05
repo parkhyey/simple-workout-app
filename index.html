@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HW6-Workout Tracker</title>
+    <link rel="stylesheet" href="public/styles.css">
+</head>
+
+<body>
+    <h2>Workout Table</h2>
+    <div id="newTableContainer">
+        <h3>Add New Workout</h3>
+        <form id="newEntry">
+            <table id="newTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Reps</th>
+                        <th>Weight</th>
+                        <th>Date</th>
+                        <th>Lbs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- input row -->
+                    <tr>
+                        <td><input type="text" name="name" id="nameInput" placeholder="name..(required)"></td>
+                        <td><input type="number" name="Reps" id="repsInput" placeholder="reps.."></td>
+                        <td><input type="number" name="weight" id="weightInput" placeholder="weight.."></td>
+                        <td><input type="text" name="date" id="dateInput" placeholder="MM-DD-YYYY"></td>
+                        <td><input type="text" name="lbs" id="lbsInput" placeholder="BOOLEAN"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <!-- submit button -->
+        <button id="submitNew" name="submit">Add New</button>
+    </div>
+
+    <!-- result table -->
+    <div id="dataTableContainer">
+        <h3>My Workout List</h3>
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Reps</th>
+                    <th>Weight</th>
+                    <th>Date</th>
+                    <th>Lbs</th>
+                </tr>
+            </thead>
+            <tbody id="dataTableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <!-- edit table (hidden at default) -->
+    <div id="editTableContainer">
+        <h3>Edit Your Workout!</h3>
+        <table id="editTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Reps</th>
+                    <th>Weight</th>
+                    <th>Date</th>
+                    <th>Lbs</th>
+                </tr>
+            </thead>
+            <tbody id="editTableBody">
+            </tbody>
+        </table>
+        <!-- warning for editting two rows (hidden at default) -->
+        <div id="warning"><h3>You can only edit one row at a time!</h3></div>
+    </div>    
+    <script src="public/frontend.js"></script>
+</body>
+
+</html>
