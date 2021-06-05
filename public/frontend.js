@@ -3,19 +3,8 @@
 
 document.addEventListener('DOMContentLoaded', bindButtons);
 function bindButtons() {
-
-    // send get request to display all workouts list
-    var req = new XMLHttpRequest();
-    var myURL = 'http://flip3.engr.oregonstate.edu:33122/';
-    req.open('GET', myURL, false);
-    req.send(null);
-    var response = JSON.parse(req.responseText);
-    // console.log(response);
-
-    // call displayRows function to display each row
-    for (var i = 0; i < response.length; i++) {
-        displayRows(response, "dataTableBody", i);
-    }
+    // display all rows of table
+    displayAll();
 
     // when Add New button is clicked after adding new data
     document.getElementById('submitNew').addEventListener('click', function (event) {
@@ -58,15 +47,30 @@ function bindButtons() {
     })
 };
 
+// function to display all rows of table
+function displayAll() {
+    // send get request to display all workouts list
+    var req = new XMLHttpRequest();
+    var myURL = 'http://flip3.engr.oregonstate.edu:33122/';
+    req.open('GET', myURL, false);
+    req.send(null);
+    var response = JSON.parse(req.responseText);
+    
+    for (var i = 0; i < response.length; i++) {
+        // call displayRows function to display each row
+        displayRows(response, "dataTableBody", i);
+    }
+}
+
+// funtion do delete a row with matching ID
 function deleteRow(tableID, currentID) {
     var req = new XMLHttpRequest();
     var myURL = 'http://flip3.engr.oregonstate.edu:33122/?id=' + currentID;
     req.open('DELETE', myURL, false);
     req.send(null);
 
-    // delete a row with matching id
     var table = document.getElementById(tableID);
-    for (var i = 1; i <= currentID; i++) {
+    for (var i = 1; i <= table.rows.length; i++) {
         var row = table.rows[i];
         if (row.id == currentID) {
             table.deleteRow(i);
@@ -75,6 +79,7 @@ function deleteRow(tableID, currentID) {
     }
 }
 
+// function to select a row with matching ID and display it in an edit table
 function editRow(tableID, currentID) {
     if (document.getElementById("editTableContainer").style.display == "block") {
         document.getElementById("warning").style.display = "block";
@@ -89,7 +94,7 @@ function editRow(tableID, currentID) {
     // display the selected row 
     var response = JSON.parse(req.responseText);
     var table = document.getElementById(tableID);
-    for (var i = 0; i <= currentID; i++) {
+    for (var i = 0; i <= table.rows.length; i++) {
         var row = table.rows[i];
         if (row.id == currentID) {
             displayEditRow(response, "editTableBody", 0);
@@ -130,12 +135,12 @@ function displayEditRow(response, tableBodyId, i) {
 
     // insert update, cancel buttons for each row
     // add the hidden id into onclick event attribute to keep track
-    cell6.innerHTML = '<button id="updateButton" class="button" name="update" onclick="updateRow(' + response[i].id + ')">Update</button>';
+    cell6.innerHTML = '<button id="updateButton" class="button" name="update" onclick="updateRow(\'dataTable\',' + response[i].id + ')">Update</button>';
     cell7.innerHTML = '<button id="cancelButton" class="button" name="cancel" onclick="cancelRow(\'editTable\',' + response[i].id + ')">Cancel</button>';
 }
 
 // updating MySQL data and update the main table to reflect the change
-function updateRow(currentID, e) {
+function updateRow(tableID, currentID, e) {
     var req = new XMLHttpRequest();
     var payload = {
         name: null,
@@ -165,12 +170,12 @@ function updateRow(currentID, e) {
         req.setRequestHeader('Content-Type', 'application/json');
         req.send(JSON.stringify(payload));
         // var response = JSON.parse(req.responseText);
-        
-        // delete table and reload to reflect the change
-        deleteTable("dataTable")
-        location.reload();
 
-        // delete the edit section display
+        // delete table and redisplay the table to reflect the change
+        deleteTable("dataTable");
+        displayAll();
+
+        // delete the edit section
         cancelRow("editTable", currentID);
     }
     // prevent page refresh
@@ -182,9 +187,8 @@ function updateRow(currentID, e) {
 function deleteTable(tableID) {
     // delete a row
     var table = document.getElementById(tableID);
-    for (var i = 1; i <= table.length; i++) {
-        table.deleteRow(i);
-        return;
+    for (var i = 0; i <= table.rows.length + 1; i++) {
+        table.deleteRow(1);
     }
 }
 
@@ -194,7 +198,7 @@ function cancelRow(tableID, currentID) {
     document.getElementById("editTableContainer").style.display = "none";
     // delete a row with matching id
     var table = document.getElementById(tableID);
-    for (var i = 1; i <= currentID; i++) {
+    for (var i = 1; i <= table.rows.length; i++) {
         var row = table.rows[i];
         if (row.id == currentID) {
             table.deleteRow(i);
