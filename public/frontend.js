@@ -32,7 +32,7 @@ function bindButtons() {
         payload.lbs = document.getElementById('lbsInput').value;
 
         if (payload.name) {
-            var myURL = 'http://flip3.engr.oregonstate.edu:33122/?name=' + payload.name + '&reps=' + payload.reps + '&weight=' + payload.weight + '&date=' + payload.date + '&lbs=' + payload.lbs
+            var myURL = 'http://localhost:33122/?name=' + payload.name + '&reps=' + payload.reps + '&weight=' + payload.weight + '&date=' + payload.date + '&lbs=' + payload.lbs
 
             // send request using an asynchronous call via POST
             req.open('POST', myURL, false);
@@ -51,11 +51,11 @@ function bindButtons() {
 function displayAll() {
     // send get request to display all workouts list
     var req = new XMLHttpRequest();
-    var myURL = 'http://flip3.engr.oregonstate.edu:33122/';
+    var myURL = 'http://localhost:33122/';
     req.open('GET', myURL, false);
     req.send(null);
     var response = JSON.parse(req.responseText);
-    
+
     for (var i = 0; i < response.length; i++) {
         // call displayRows function to display each row
         displayRows(response, "dataTableBody", i);
@@ -65,7 +65,7 @@ function displayAll() {
 // funtion do delete a row with matching ID
 function deleteRow(tableID, currentID) {
     var req = new XMLHttpRequest();
-    var myURL = 'http://flip3.engr.oregonstate.edu:33122/?id=' + currentID;
+    var myURL = 'http://localhost:33122/?id=' + currentID;
     req.open('DELETE', myURL, false);
     req.send(null);
 
@@ -87,7 +87,7 @@ function editRow(tableID, currentID) {
     }
     document.getElementById("warning").style.display = "none";
     var req = new XMLHttpRequest();
-    var myURL = 'http://flip3.engr.oregonstate.edu:33122/?id=' + currentID;
+    var myURL = 'http://localhost:33122/?id=' + currentID;
     req.open('GET', myURL, false);
     req.send(null);
 
@@ -163,7 +163,7 @@ function updateRow(tableID, currentID, e) {
     payload.lbs = document.getElementById('lbsEdit').value;
 
     if (payload.name) {
-        var myURL = 'http://flip3.engr.oregonstate.edu:33122/?name=' + payload.name + '&reps=' + payload.reps + '&weight=' + payload.weight + '&date=' + payload.date + '&lbs=' + payload.lbs + '&id=' + currentID;
+        var myURL = 'http://localhost:33122/?name=' + payload.name + '&reps=' + payload.reps + '&weight=' + payload.weight + '&date=' + payload.date + '&lbs=' + payload.lbs + '&id=' + currentID;
 
         // send request
         req.open('PUT', myURL, false);
@@ -187,7 +187,12 @@ function updateRow(tableID, currentID, e) {
 function deleteTable(tableID) {
     // delete a row
     var table = document.getElementById(tableID);
-    for (var i = 0; i <= table.rows.length + 1; i++) {
+    console.log(table.rows.length)
+    console.log(table.rows[1])
+    for (var i = 0; i <= table.rows.length * 10; i++) {
+        if (table.rows.length <= 1) {
+            return;
+        }
         table.deleteRow(1);
     }
 }
