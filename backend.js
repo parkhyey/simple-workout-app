@@ -40,6 +40,7 @@ app.get('/reset-table', function (req, res, next) {
 
 // GET request to show all rows of the table
 app.get('/', function (req, res, next) {
+    // if there is a passed id value, select the row with matching id
     if (req.query.id) {
         mysql.pool.query('SELECT * FROM workouts WHERE id=?', [req.query.id], function (err, rows, fields) {
             if (err) {
@@ -50,6 +51,7 @@ app.get('/', function (req, res, next) {
             res.send(rows);
         });
     }
+    // otherwise, select all rows
     else {
         mysql.pool.query('SELECT * FROM workouts', function (err, rows, fields) {
             if (err) {
