@@ -1,10 +1,29 @@
 # simple-workout-app
 
-This is a simple database backed website that features Ajax interaction. 
-Below is a handler to set up the database table. It contains all the fields needed to make a simple workout tracker.
+This is a database backed website - a simple workout tracker that features Ajax interaction using pure javascript.</br>
+It features viewing, editing, adding and deleting of data.</br>
+The file composition is:
+<ul>
+--backend.js (server side javascript; receive request from client side and send response back)</br>
+--index.html (html to build the website structure)</br>
+--public (static js file and css file)</br>
+----frontend.js (client side javascript; make Ajax request)</br>
+----styles.css (style index.html and use hidden feature using javascript)</br>
+--views (error handlebars)</br>
+</ul>
+
+The data flow should look like the following:
+<ul>
+Request: Ajax -> Node Server -> MySQL</br>
+Respond: mySQL -> Node Server -> Ajax</br>
+</ul>
+
+Below is the code that creates a handler to set up the database table. It contains all the fields needed to make a simple workout tracker.
+
+```javascript
 app.get('/reset-table',function(req,res,next){
   var context = {};
-  [your connection pool].query("DROP TABLE IF EXISTS workouts", function(err){ //replace your connection pool with the your variable containing the connection pool
+  [your connection pool].query("DROP TABLE IF EXISTS workouts", function(err){
     var createString = "CREATE TABLE workouts("+
     "id INT PRIMARY KEY AUTO_INCREMENT,"+
     "name VARCHAR(255) NOT NULL,"+
@@ -18,12 +37,14 @@ app.get('/reset-table',function(req,res,next){
     })
   });
 });
-
-name - the name of the exercise
-reps - the number of times the exercise was performed
-weight - the weight of the weights used
-date - the date the exercise was performed (in the format of Month-Day-Year, e.g., 05-25-2018)
-unit -  indicating if the measurement is in lbs or kg
+```
+<ul>
+  name - the name of the exercise</br>
+  reps - the number of times the exercise was performed</br>
+  weight - the weight of the weights used</br>
+  date - the date the exercise was performed (in the format of Month-Day-Year, e.g., 05-25-2018)</br>
+  unit -  indicating if the measurement is in lbs or kg</br>
+</ul>
 
 # Requirements
 This is a single page application with the following functionality:
@@ -56,14 +77,10 @@ In the server-side code, you will write two to four methods, all of which use th
 Properly implementing the viewing, editing, adding and deleting of data.
 
 
-# Helpful Suggestions
+# Suggestions
 In this assignment, you need to implement both frontend and backend. Implement your own API to manipulate MySQL. 
 Generally, HTML, CSS, and JavaScript for HTML are frontend and they run in the browser and provide a UI for the webpage. 
 Node.JS and MySQL are backends. Because Ajax allows the web page to be updated asynchronously, it is a frontend technology.
-
-The data flow should look like the following.
-Request: Ajax -> Node Server -> MySQL
-Respond: mySQL -> Node Server -> Ajax
  
 Returning Data From The Database
 Because the interactions should be handled via Ajax, you often only want the database to send back an updated version of the table, not a whole new page. 
