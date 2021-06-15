@@ -18,33 +18,9 @@ Request: Ajax -> Node Server -> MySQL</br>
 Respond: mySQL -> Node Server -> Ajax</br>
 </ul>
 
-Below is the code that creates a handler to set up the database table. It contains all the fields needed to make a simple workout tracker.
-
-```javascript
-app.get('/reset-table',function(req,res,next){
-  var context = {};
-  [your connection pool].query("DROP TABLE IF EXISTS workouts", function(err){
-    var createString = "CREATE TABLE workouts("+
-    "id INT PRIMARY KEY AUTO_INCREMENT,"+
-    "name VARCHAR(255) NOT NULL,"+
-    "reps INT,"+
-    "weight INT,"+
-    "date DATE,"+
-    "lbs BOOLEAN)";
-    [your connection pool].query(createString, function(err){
-      context.results = "Table reset";
-      res.render('home',context);
-    })
-  });
-});
-```
-<ul>
-  name - the name of the exercise</br>
-  reps - the number of times the exercise was performed</br>
-  weight - the weight of the weights used</br>
-  date - the date the exercise was performed (in the format of Month-Day-Year, e.g., 05-25-2018)</br>
-  unit -  indicating if the measurement is in lbs or kg</br>
-</ul>
+# Results
+Below is the website view. I used my school flip server for backend js file and it requires the vpn to fully functional.
+![](views/workout-app.jpg)
 
 # Requirements
 This is a single page application with the following functionality:
@@ -76,7 +52,6 @@ In the server-side code, you will write two to four methods, all of which use th
 4) app.delete('/',..........)
 Properly implementing the viewing, editing, adding and deleting of data.
 
-
 # Suggestions
 In this assignment, you need to implement both frontend and backend. Implement your own API to manipulate MySQL. 
 Generally, HTML, CSS, and JavaScript for HTML are frontend and they run in the browser and provide a UI for the webpage. 
@@ -89,3 +64,31 @@ You could even do this when you make the page initially (i.e. not use Handlebars
 
 Including JavaScript
 Include static JavaScript files just like statics CSS files. e same thing to link static client side JS files.
+
+Below is the code that creates a handler to set up the database table. It contains all the fields needed to make a simple workout tracker.
+
+```javascript
+app.get('/reset-table',function(req,res,next){
+  var context = {};
+  [your connection pool].query("DROP TABLE IF EXISTS workouts", function(err){
+    var createString = "CREATE TABLE workouts("+
+    "id INT PRIMARY KEY AUTO_INCREMENT,"+
+    "name VARCHAR(255) NOT NULL,"+
+    "reps INT,"+
+    "weight INT,"+
+    "date DATE,"+
+    "lbs BOOLEAN)";
+    [your connection pool].query(createString, function(err){
+      context.results = "Table reset";
+      res.render('home',context);
+    })
+  });
+});
+```
+<ul>
+  name - the name of the exercise</br>
+  reps - the number of times the exercise was performed</br>
+  weight - the weight of the weights used</br>
+  date - the date the exercise was performed (in the format of Month-Day-Year, e.g., 05-25-2018)</br>
+  unit -  indicating if the measurement is in lbs or kg</br>
+</ul>
