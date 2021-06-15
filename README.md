@@ -21,6 +21,9 @@ Respond: mySQL -> Node Server -> Ajax</br>
 # Results
 Below is the website view. I used my school flip server for backend js file and it requires the vpn to fully functional.
 ![](views/workout-app.jpg)
+</br></br>
+Here is the serverside MySQL data.
+![](views/workout-app-serverside.jpg)
 
 # Requirements
 This is a single page application with the following functionality:
